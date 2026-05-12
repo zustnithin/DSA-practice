@@ -22,15 +22,26 @@ Node* convertArr2DLL(vector<int> &arr){
     Node* prev=head;
     for(int i=1;i<arr.size();i++){
         Node* temp=new Node(arr[i],nullptr,prev);
-        head->next=temp;
+        prev->next=temp;
         prev=temp;
     }
     return head;
 }
+Node* reverseDLL(Node* head){
+    Node* current=head;
+    Node* last;
+    while(current!=nullptr){
+        last=current->back;
+        current->back=current->next;
+        current->next=last;
+        current=current->back;
+    }
+    return last->back;
+}
 int main(){
-    vector<int> arr={};
+    vector<int> arr={5,6,7};
      Node* head = convertArr2DLL(arr);
-
+    head=reverseDLL(head);
     while(head != nullptr) {
         cout << head->data << " ";
         head = head->next;
